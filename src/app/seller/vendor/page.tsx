@@ -14,6 +14,13 @@ const STATUS_COLORS: Record<string, string> = {
   cancelled: "bg-red-100 text-red-800",
 };
 
+const STATUS_HE: Record<string, string> = {
+  pending: "ממתין",
+  ordered: "הוזמן",
+  received: "התקבל",
+  cancelled: "בוטל",
+};
+
 async function getAuth() {
   const cookieStore = await cookies();
   return cookieStore.get("seller_auth")?.value === "1";
@@ -35,31 +42,30 @@ export default async function VendorPage() {
       <nav className="bg-[#5C3D2E] text-white px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Image src="/logo.jpg" alt="Tamashi" width={32} height={32} className="rounded-full" />
-          <span className="font-serif text-lg">Tamashi — Seller</span>
+          <span className="text-lg font-semibold">Tamashi — ספקים</span>
         </div>
         <div className="flex items-center gap-4 text-sm">
-          <Link href="/seller" className="hover:text-[#F4B19B] transition-colors">Dashboard</Link>
-          <Link href="/seller/bouquets" className="hover:text-[#F4B19B] transition-colors">Bouquets</Link>
+          <Link href="/seller" className="hover:text-[#F4B19B] transition-colors">דאשבוארד</Link>
+          <Link href="/seller/bouquets" className="hover:text-[#F4B19B] transition-colors">זרים</Link>
+          <Link href="/seller/manager" className="hover:text-[#F4B19B] transition-colors">מנהל</Link>
           <form action="/api/seller/logout" method="POST">
-            <button className="hover:text-[#F4B19B] transition-colors">Logout</button>
+            <button className="hover:text-[#F4B19B] transition-colors">יציאה</button>
           </form>
         </div>
       </nav>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="font-serif text-3xl text-[#5C3D2E] mb-8">Vendor Orders</h1>
+        <h1 className="text-3xl font-semibold text-[#5C3D2E] mb-8">הזמנות לספקים</h1>
 
-        {/* New order form */}
         <div className="bg-white rounded-2xl p-5 shadow-sm border border-[#F4B19B]/20 mb-8">
-          <h2 className="font-serif text-xl text-[#5C3D2E] mb-4">New Vendor Order</h2>
+          <h2 className="text-xl font-semibold text-[#5C3D2E] mb-4">הזמנה חדשה</h2>
           <VendorOrderForm />
         </div>
 
-        {/* Open orders */}
         <section className="mb-8">
-          <h2 className="font-serif text-xl text-[#5C3D2E] mb-3">Open Orders ({open.length})</h2>
+          <h2 className="text-xl font-semibold text-[#5C3D2E] mb-3">הזמנות פתוחות ({open.length})</h2>
           {open.length === 0 ? (
-            <p className="text-[#5C3D2E]/40 py-4 text-center">No open vendor orders.</p>
+            <p className="text-[#5C3D2E]/40 py-4 text-center">אין הזמנות פתוחות.</p>
           ) : (
             <div className="flex flex-col gap-3">
               {open.map((order) => (
@@ -69,10 +75,9 @@ export default async function VendorPage() {
           )}
         </section>
 
-        {/* Closed orders */}
         {closed.length > 0 && (
           <section>
-            <h2 className="font-serif text-xl text-[#5C3D2E] mb-3">Completed / Cancelled</h2>
+            <h2 className="text-xl font-semibold text-[#5C3D2E] mb-3">הושלמו / בוטלו</h2>
             <div className="flex flex-col gap-3 opacity-60">
               {closed.map((order) => (
                 <VendorOrderRow key={order.id} order={order} />
@@ -90,6 +95,10 @@ function VendorOrderRow({ order }: { order: { id: string; vendorName: string; it
     pending: "ordered",
     ordered: "received",
   };
+  const nextLabel: Record<string, string> = {
+    ordered: "סמן כהוזמן",
+    received: "סמן כהתקבל",
+  };
 
   return (
     <div className="bg-white rounded-xl p-4 shadow-sm border border-[#F4B19B]/20">
@@ -98,16 +107,16 @@ function VendorOrderRow({ order }: { order: { id: string; vendorName: string; it
           <div className="flex items-center gap-2 mb-1 flex-wrap">
             <p className="font-medium text-[#5C3D2E]">{order.vendorName}</p>
             <span className={`text-xs px-2 py-1 rounded-full ${STATUS_COLORS[order.status] ?? "bg-gray-100"}`}>
-              {order.status}
+              {STATUS_HE[order.status] ?? order.status}
             </span>
           </div>
           <p className="text-sm text-[#5C3D2E]/70 whitespace-pre-wrap">{order.items}</p>
           {order.totalAmount && (
-            <p className="text-sm text-[#5C3D2E]/60 mt-1">Total: ₪{order.totalAmount}</p>
+            <p className="text-sm text-[#5C3D2E]/60 mt-1">סה״כ: ₪{order.totalAmount}</p>
           )}
           {order.expectedDate && (
             <p className="text-xs text-[#5C3D2E]/50 mt-1">
-              Expected: {new Date(order.expectedDate).toLocaleDateString("he-IL")}
+              תאריך צפוי: {new Date(order.expectedDate).toLocaleDateString("he-IL")}
             </p>
           )}
           {order.notes && <p className="text-xs text-[#5C3D2E]/50 italic mt-1">{order.notes}</p>}
@@ -119,7 +128,7 @@ function VendorOrderRow({ order }: { order: { id: string; vendorName: string; it
               type="submit"
               className="text-xs px-3 py-2 bg-[#F4B19B] text-[#5C3D2E] rounded-full hover:bg-[#E8916F] hover:text-white transition-colors whitespace-nowrap"
             >
-              Mark {next[order.status]}
+              {nextLabel[next[order.status]]}
             </button>
           </form>
         )}

@@ -35,14 +35,14 @@ export default function FlowerForm() {
         value={name}
         onChange={(e) => setName(e.target.value)}
         className="flex-1 px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B]"
-        placeholder="Flower name (e.g. Rose)"
+        placeholder="שם הפרח (למשל: ורד)"
       />
       <button
         type="submit"
         disabled={status === "loading"}
         className="px-4 py-2 bg-[#F4B19B] text-[#5C3D2E] rounded-lg text-sm font-medium hover:bg-[#E8916F] hover:text-white transition-colors disabled:opacity-60"
       >
-        {status === "success" ? "Added!" : "Add"}
+        {status === "success" ? "✓ נוסף" : "הוסף"}
       </button>
     </form>
   );

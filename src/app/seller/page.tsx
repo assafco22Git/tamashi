@@ -36,7 +36,7 @@ export default async function SellerDashboard() {
       <nav className="bg-[#5C3D2E] text-white px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Image src="/logo.jpg" alt="Tamashi" width={32} height={32} className="rounded-full" />
-          <span className="font-serif text-lg">Tamashi — מוכר</span>
+          <span className="text-lg font-semibold">Tamashi — מוכר</span>
         </div>
         <div className="flex items-center gap-4 text-sm">
           <Link href="/seller/bouquets" className="hover:text-[#F4B19B] transition-colors">זרים</Link>
@@ -49,7 +49,7 @@ export default async function SellerDashboard() {
       </nav>
 
       <div className="max-w-5xl mx-auto px-4 py-8">
-        <h1 className="font-serif text-3xl text-[#5C3D2E] mb-8">לוח בקרה</h1>
+        <h1 className="text-3xl text-[#5C3D2E] mb-8 font-semibold">דאשבוארד</h1>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           <StatCard label="הזמנות פתוחות" value={openOrders.length} color="bg-[#F4B19B]/30" />
@@ -66,7 +66,7 @@ export default async function SellerDashboard() {
         </div>
 
         <section className="mb-10">
-          <h2 className="font-serif text-2xl text-[#5C3D2E] mb-4">הזמנות פתוחות</h2>
+          <h2 className="font-semiboldtext-2xl text-[#5C3D2E] mb-4">הזמנות פתוחות</h2>
           {openOrders.length === 0 ? (
             <p className="text-[#5C3D2E]/50 py-8 text-center">אין הזמנות פתוחות כרגע.</p>
           ) : (
@@ -77,7 +77,7 @@ export default async function SellerDashboard() {
         </section>
 
         <section>
-          <h2 className="font-serif text-2xl text-[#5C3D2E] mb-4">הזמנות מיוחדות</h2>
+          <h2 className="font-semiboldtext-2xl text-[#5C3D2E] mb-4">הזמנות מיוחדות</h2>
           {specialOrders.length === 0 ? (
             <p className="text-[#5C3D2E]/50 py-8 text-center">אין הזמנות מיוחדות.</p>
           ) : (

@@ -56,7 +56,7 @@ export default async function HomePage() {
 
       {/* Gallery */}
       <section className="px-4 py-12 max-w-6xl mx-auto flex-1">
-        <h2 className="font-serif text-3xl text-[#5C3D2E] text-center mb-8">הזרים שלנו</h2>
+        <h2 className="text-3xl font-semibold text-[#5C3D2E] text-center mb-8">הזרים שלנו</h2>
         {recent.length === 0 ? (
           <div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
@@ -91,7 +91,7 @@ export default async function HomePage() {
 
       {/* Store info */}
       <section className="py-12 px-4 text-center" style={{ background: "linear-gradient(180deg, #FDF6F0 0%, #FAD9CC 100%)" }}>
-        <h2 className="font-serif text-2xl text-[#5C3D2E] mb-8">בואו לבקר</h2>
+        <h2 className="text-2xl font-semibold text-[#5C3D2E] mb-8">בואו לבקר</h2>
         <div className="flex flex-col md:flex-row gap-8 justify-center items-center max-w-2xl mx-auto">
           <div className="flex flex-col items-center gap-1">
             <span className="text-3xl">📍</span>

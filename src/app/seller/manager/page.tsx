@@ -30,7 +30,7 @@ export default async function ManagerPage() {
       <nav className="bg-[#5C3D2E] text-white px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Image src="/logo.jpg" alt="Tamashi" width={32} height={32} className="rounded-full" />
-          <span className="font-serif text-lg">Tamashi — מנהל</span>
+          <span className="font-semiboldtext-lg">Tamashi — מנהל</span>
         </div>
         <div className="flex items-center gap-4 text-sm">
           <Link href="/seller" className="hover:text-[#F4B19B] transition-colors">לוח בקרה</Link>
@@ -43,11 +43,11 @@ export default async function ManagerPage() {
       </nav>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="font-serif text-3xl text-[#5C3D2E] mb-8">ניהול תוכן</h1>
+        <h1 className="font-semiboldtext-3xl text-[#5C3D2E] mb-8">ניהול תוכן</h1>
 
         {/* Store Settings */}
         <section className="mb-10">
-          <h2 className="font-serif text-2xl text-[#5C3D2E] mb-4">הגדרות חנות</h2>
+          <h2 className="font-semiboldtext-2xl text-[#5C3D2E] mb-4">הגדרות חנות</h2>
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#F4B19B]/20">
             <StoreSettingsForm
               tagline={s.tagline ?? "זרים עבודת יד, עשויים באהבה בתל אביב"}
@@ -61,7 +61,7 @@ export default async function ManagerPage() {
         {/* Bouquet Editor */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-serif text-2xl text-[#5C3D2E]">עריכת זרים</h2>
+            <h2 className="font-semiboldtext-2xl text-[#5C3D2E]">עריכת זרים</h2>
             {bouquets.length === 0 && <SeedButton />}
           </div>
           <div className="flex flex-col gap-4">

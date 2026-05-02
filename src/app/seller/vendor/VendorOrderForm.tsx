@@ -36,6 +36,8 @@ export default function VendorOrderForm() {
     }
   }
 
+  const field = "px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B]";
+
   return (
     <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-3">
       <input
@@ -43,15 +45,15 @@ export default function VendorOrderForm() {
         type="text"
         value={form.vendorName}
         onChange={(e) => setForm({ ...form, vendorName: e.target.value })}
-        className="px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B]"
-        placeholder="Vendor name"
+        className={field}
+        placeholder="שם הספק"
       />
       <input
         type="number"
         value={form.totalAmount}
         onChange={(e) => setForm({ ...form, totalAmount: e.target.value })}
-        className="px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B]"
-        placeholder="Total amount (₪)"
+        className={field}
+        placeholder="סכום כולל (₪)"
         min={0}
       />
       <textarea
@@ -59,22 +61,21 @@ export default function VendorOrderForm() {
         value={form.items}
         onChange={(e) => setForm({ ...form, items: e.target.value })}
         rows={3}
-        className="col-span-full px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B] resize-none"
-        placeholder="Items ordered (flowers, quantities, etc.)"
+        className={`col-span-full ${field} resize-none`}
+        placeholder="פריטים להזמנה (פרחים, כמויות וכו׳)"
       />
       <input
         type="date"
         value={form.expectedDate}
         onChange={(e) => setForm({ ...form, expectedDate: e.target.value })}
-        className="px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B]"
-        placeholder="Expected delivery date"
+        className={field}
       />
       <input
         type="text"
         value={form.notes}
         onChange={(e) => setForm({ ...form, notes: e.target.value })}
-        className="px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B]"
-        placeholder="Notes (optional)"
+        className={field}
+        placeholder="הערות (אופציונלי)"
       />
       <div className="col-span-full flex items-center gap-3">
         <button
@@ -82,10 +83,10 @@ export default function VendorOrderForm() {
           disabled={status === "loading"}
           className="px-6 py-2.5 bg-[#5C3D2E] text-white rounded-full text-sm font-medium hover:bg-[#4a3124] transition-colors disabled:opacity-60"
         >
-          {status === "loading" ? "Adding..." : "Add Order"}
+          {status === "loading" ? "מוסיף..." : "הוסף הזמנה"}
         </button>
-        {status === "success" && <span className="text-green-600 text-sm">Order added!</span>}
-        {status === "error" && <span className="text-red-500 text-sm">Failed. Try again.</span>}
+        {status === "success" && <span className="text-green-600 text-sm">✓ ההזמנה נוספה!</span>}
+        {status === "error" && <span className="text-red-500 text-sm">שגיאה. נסה שוב.</span>}
       </div>
     </form>
   );

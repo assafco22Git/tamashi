@@ -32,6 +32,8 @@ export default function BouquetUploadForm() {
     }
   }
 
+  const field = "w-full px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B]";
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <input
@@ -39,24 +41,24 @@ export default function BouquetUploadForm() {
         type="text"
         value={form.name}
         onChange={(e) => setForm({ ...form, name: e.target.value })}
-        className="w-full px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B]"
-        placeholder="Bouquet name"
+        className={field}
+        placeholder="שם הזר"
       />
       <textarea
         required
         value={form.description}
         onChange={(e) => setForm({ ...form, description: e.target.value })}
         rows={3}
-        className="w-full px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B] resize-none"
-        placeholder="Description"
+        className={`${field} resize-none`}
+        placeholder="תיאור"
       />
       <input
         required
         type="number"
         value={form.price}
         onChange={(e) => setForm({ ...form, price: e.target.value })}
-        className="w-full px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B]"
-        placeholder="Price (₪)"
+        className={field}
+        placeholder="מחיר (₪)"
         min={0}
       />
       <input
@@ -64,8 +66,8 @@ export default function BouquetUploadForm() {
         type="url"
         value={form.imageUrl}
         onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
-        className="w-full px-3 py-2 rounded-lg border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] text-sm focus:outline-none focus:border-[#F4B19B]"
-        placeholder="Image URL (paste from Cloudinary, etc.)"
+        className={field}
+        placeholder="קישור תמונה"
       />
       <label className="flex items-center gap-2 text-sm text-[#5C3D2E]/70 cursor-pointer">
         <input
@@ -74,22 +76,18 @@ export default function BouquetUploadForm() {
           onChange={(e) => setForm({ ...form, featured: e.target.checked })}
           className="accent-[#F4B19B]"
         />
-        Featured on homepage
+        מוצג בדף הבית
       </label>
 
-      {status === "success" && (
-        <p className="text-green-600 text-sm text-center">Bouquet added!</p>
-      )}
-      {status === "error" && (
-        <p className="text-red-500 text-sm text-center">Failed to add bouquet.</p>
-      )}
+      {status === "success" && <p className="text-green-600 text-sm text-center">✓ הזר נוסף!</p>}
+      {status === "error" && <p className="text-red-500 text-sm text-center">שגיאה בהוספת הזר.</p>}
 
       <button
         type="submit"
         disabled={status === "loading"}
         className="w-full py-2.5 bg-[#5C3D2E] text-white rounded-full text-sm font-medium hover:bg-[#4a3124] transition-colors disabled:opacity-60"
       >
-        {status === "loading" ? "Adding..." : "Add Bouquet"}
+        {status === "loading" ? "מוסיף..." : "הוסף זר"}
       </button>
     </form>
   );
