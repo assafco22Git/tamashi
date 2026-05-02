@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function SellerLoginPage() {
   const router = useRouter();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -17,13 +17,13 @@ export default function SellerLoginPage() {
     const res = await fetch("/api/seller/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({ password }),
     });
     if (res.ok) {
       router.push("/seller");
       router.refresh();
     } else {
-      setError("Invalid email or password.");
+      setError("סיסמה שגויה");
       setLoading(false);
     }
   }
@@ -35,26 +35,19 @@ export default function SellerLoginPage() {
     >
       <div className="bg-white rounded-3xl shadow-lg p-8 w-full max-w-sm">
         <div className="flex flex-col items-center mb-6">
-          <Image src="/logo.jpg" alt="Tamashi" width={56} height={56} className="mb-3" />
-          <h1 className="font-serif text-2xl text-[#5C3D2E]">Seller Login</h1>
+          <Image src="/logo.jpg" alt="Tamashi" width={56} height={56} className="mb-3 rounded-full" />
+          <h1 className="text-2xl text-[#5C3D2E] font-semibold">כניסה למוכר</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             required
-            type="email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="w-full px-4 py-3 rounded-xl border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] focus:outline-none focus:border-[#F4B19B]"
-            placeholder="Email"
-          />
-          <input
-            required
             type="password"
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="w-full px-4 py-3 rounded-xl border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] focus:outline-none focus:border-[#F4B19B]"
-            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-4 py-3 rounded-xl border border-[#F4B19B]/50 bg-[#FDF6F0] text-[#5C3D2E] focus:outline-none focus:border-[#F4B19B] text-center tracking-widest text-lg"
+            placeholder="סיסמה"
+            autoFocus
           />
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
           <button
@@ -62,7 +55,7 @@ export default function SellerLoginPage() {
             disabled={loading}
             className="w-full py-3 bg-[#5C3D2E] text-white rounded-full font-medium hover:bg-[#4a3124] transition-colors disabled:opacity-60"
           >
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? "נכנס..." : "כניסה"}
           </button>
         </form>
       </div>

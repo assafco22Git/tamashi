@@ -39,6 +39,7 @@ export default function Navigation() {
           >
             <InstagramIcon />
           </a>
+          <Link href="/seller/login" className="text-[#5C3D2E]/30 hover:text-[#5C3D2E]/60 transition-colors text-xs">מוכר</Link>
         </div>
 
         {/* Mobile toggle */}
@@ -60,6 +61,9 @@ export default function Navigation() {
           >
             <InstagramIcon /> @tamashi.tlv
           </a>
+          <Link href="/seller/login" className="text-[#5C3D2E]/30 text-sm mt-2 self-start" onClick={toggle}>
+            כניסה למוכר
+          </Link>
         </div>
       )}
     </nav>
