@@ -32,7 +32,7 @@ export default async function HomePage() {
 
         <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
           <Image
-            src="/logo.png"
+            src="/logo.jpg"
             alt="Tamashi"
             width={100}
             height={100}

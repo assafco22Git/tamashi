@@ -12,7 +12,7 @@ export default function Navigation() {
     <nav className="sticky top-0 z-50 bg-[#FDF6F0]/90 backdrop-blur-sm border-b border-[#F4B19B]/30">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.png" alt="Tamashi" width={40} height={40} className="rounded-full" />
+          <Image src="/logo.jpg" alt="Tamashi" width={40} height={40} className="rounded-full" />
           <span className="text-xl font-serif text-[#5C3D2E] tracking-wide">Tamashi</span>
         </Link>
 

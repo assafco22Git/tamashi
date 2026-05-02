@@ -35,7 +35,7 @@ export default function SellerLoginPage() {
     >
       <div className="bg-white rounded-3xl shadow-lg p-8 w-full max-w-sm">
         <div className="flex flex-col items-center mb-6">
-          <Image src="/logo.png" alt="Tamashi" width={56} height={56} className="mb-3" />
+          <Image src="/logo.jpg" alt="Tamashi" width={56} height={56} className="mb-3" />
           <h1 className="font-serif text-2xl text-[#5C3D2E]">Seller Login</h1>
         </div>
 

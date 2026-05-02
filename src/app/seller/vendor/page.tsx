@@ -34,7 +34,7 @@ export default async function VendorPage() {
     <div className="min-h-screen bg-[#FDF6F0]">
       <nav className="bg-[#5C3D2E] text-white px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Image src="/logo.png" alt="Tamashi" width={32} height={32} className="rounded-full" />
+          <Image src="/logo.jpg" alt="Tamashi" width={32} height={32} className="rounded-full" />
           <span className="font-serif text-lg">Tamashi — Seller</span>
         </div>
         <div className="flex items-center gap-4 text-sm">
