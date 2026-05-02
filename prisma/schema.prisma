@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("seller")
+  createdAt DateTime @default(now())
+}
+
+model Flower {
+  id            String               @id @default(cuid())
+  name          String
+  hebrewName    String?
+  available     Boolean              @default(true)
+  createdAt     DateTime             @default(now())
+  specialOrders SpecialOrderFlower[]
+}
+
+model Bouquet {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  imageUrl    String
+  available   Boolean  @default(true)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  orders      Order[]
+}
+
+model Order {
+  id            String    @id @default(cuid())
+  bouquetId     String
+  bouquet       Bouquet   @relation(fields: [bouquetId], references: [id])
+  customerName  String
+  customerPhone String
+  customerEmail String?
+  status        String    @default("pending")
+  pickupDate    DateTime?
+  notes         String?
+  createdAt     DateTime  @default(now())
+}
+
+model SpecialOrder {
+  id            String               @id @default(cuid())
+  customerName  String
+  customerPhone String
+  customerEmail String?
+  size          String
+  budget        Float?
+  notes         String?
+  status        String               @default("pending")
+  flowers       SpecialOrderFlower[]
+  createdAt     DateTime             @default(now())
+}
+
+model SpecialOrderFlower {
+  id             String       @id @default(cuid())
+  specialOrderId String
+  specialOrder   SpecialOrder @relation(fields: [specialOrderId], references: [id])
+  flowerId       String
+  flower         Flower       @relation(fields: [flowerId], references: [id])
+}
+
+model VendorOrder {
+  id           String    @id @default(cuid())
+  vendorName   String
+  items        String
+  totalAmount  Float?
+  status       String    @default("pending")
+  expectedDate DateTime?
+  notes        String?
+  createdAt    DateTime  @default(now())
+}
