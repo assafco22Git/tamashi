@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Tamashi | פרחים",
-  description: "Tamashi Flower Shop – Fresh bouquets, custom orders, pickup in store",
+  description: "חנות פרחים Tamashi – זרים עבודת יד, הזמנה לאיסוף עצמי",
 };
 
 export default function RootLayout({
@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="he" dir="ltr" className="h-full">
+    <html lang="he" dir="rtl" className="h-full">
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

@@ -81,3 +81,9 @@ model VendorOrder {
   notes        String?
   createdAt    DateTime  @default(now())
 }
+
+model StoreSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
