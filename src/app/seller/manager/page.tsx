@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import StoreSettingsForm from "./StoreSettingsForm";
 import BouquetEditor from "./BouquetEditor";
+import SeedButton from "./SeedButton";
 
 export const dynamic = "force-dynamic";
 
@@ -59,10 +60,13 @@ export default async function ManagerPage() {
 
         {/* Bouquet Editor */}
         <section>
-          <h2 className="font-serif text-2xl text-[#5C3D2E] mb-4">עריכת זרים</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-serif text-2xl text-[#5C3D2E]">עריכת זרים</h2>
+            {bouquets.length === 0 && <SeedButton />}
+          </div>
           <div className="flex flex-col gap-4">
             {bouquets.length === 0 ? (
-              <p className="text-[#5C3D2E]/40 text-center py-8">אין זרים עדיין.</p>
+              <p className="text-[#5C3D2E]/40 text-center py-8">אין זרים עדיין. לחצו על הכפתור להוספת זרים לדוגמה.</p>
             ) : (
               bouquets.map(b => <BouquetEditor key={b.id} bouquet={b} />)
             )}

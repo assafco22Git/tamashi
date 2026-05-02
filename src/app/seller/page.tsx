@@ -58,6 +58,13 @@ export default async function SellerDashboard() {
           <StatCard label="מוכנות" value={openOrders.filter(o => o.status === "ready").length} color="bg-green-50" />
         </div>
 
+        <div className="mb-10">
+          <Link href="/seller/manager" className="inline-flex items-center gap-2 px-6 py-3 bg-[#5C3D2E] text-white rounded-full font-medium hover:bg-[#4a3124] transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            מעבר למצב מנהל
+          </Link>
+        </div>
+
         <section className="mb-10">
           <h2 className="font-serif text-2xl text-[#5C3D2E] mb-4">הזמנות פתוחות</h2>
           {openOrders.length === 0 ? (

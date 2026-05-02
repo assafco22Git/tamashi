@@ -3,6 +3,16 @@ import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import { prisma } from "@/lib/db";
 
+function InstagramIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
 async function getData() {
   const [recent, settings] = await Promise.all([
     prisma.bouquet.findMany({ where: { available: true }, take: 9, orderBy: { createdAt: "desc" } }),
@@ -20,7 +30,7 @@ export default async function HomePage() {
   const hoursFriday = s.hours_friday ?? "ו׳ 9:00–14:00";
 
   return (
-    <div className="min-h-screen page-enter">
+    <div className="min-h-screen flex flex-col page-enter">
       <Navigation />
 
       {/* Hero */}
@@ -45,7 +55,7 @@ export default async function HomePage() {
       </section>
 
       {/* Gallery */}
-      <section className="px-4 py-12 max-w-6xl mx-auto">
+      <section className="px-4 py-12 max-w-6xl mx-auto flex-1">
         <h2 className="font-serif text-3xl text-[#5C3D2E] text-center mb-8">הזרים שלנו</h2>
         {recent.length === 0 ? (
           <div>
@@ -93,8 +103,8 @@ export default async function HomePage() {
             <p className="font-medium text-[#5C3D2E]">{hoursWeekday}</p>
             <p className="text-[#5C3D2E]/60 text-sm">{hoursFriday}</p>
           </div>
-          <a href="https://www.instagram.com/tamashi.tlv/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1 hover:opacity-70 transition-opacity">
-            <span className="text-3xl">📸</span>
+          <a href="https://www.instagram.com/tamashi.tlv/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 hover:opacity-70 transition-opacity">
+            <span className="text-[#5C3D2E]"><InstagramIcon /></span>
             <p className="font-medium text-[#5C3D2E]">@tamashi.tlv</p>
             <p className="text-[#5C3D2E]/60 text-sm">עקבו אחרינו באינסטגרם</p>
           </a>
