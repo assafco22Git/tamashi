@@ -158,25 +158,25 @@ function OrderRow({ order }: { order: { id: string; customerName: string; custom
 
   return (
     <div className="bg-white rounded-xl p-4 shadow-sm border border-[#F4B19B]/20">
-      <div className="flex items-start justify-between gap-2 flex-wrap">
-        <div className="flex items-center gap-2 flex-wrap">
-          <p className="font-medium text-[#5C3D2E]">{order.customerName}</p>
-          <span className={`text-xs px-2 py-1 rounded-full ${STATUS_COLORS[order.status] ?? "bg-gray-100"}`}>
-            {STATUS_HE[order.status] ?? order.status}
-          </span>
-        </div>
-        {nextStatus && (
+      <div className="flex items-center gap-2 mb-1 flex-wrap">
+        <p className="font-medium text-[#5C3D2E]">{order.customerName}</p>
+        <span className={`text-xs px-2 py-1 rounded-full ${STATUS_COLORS[order.status] ?? "bg-gray-100"}`}>
+          {STATUS_HE[order.status] ?? order.status}
+        </span>
+      </div>
+      <p className="text-sm text-[#5C3D2E]/70">{order.bouquet.name} · ₪{order.bouquet.price}</p>
+      <p className="text-sm text-[#5C3D2E]/60">{order.customerPhone}</p>
+      {order.pickupDate && <p className="text-xs text-[#5C3D2E]/50 mt-1">איסוף: {new Date(order.pickupDate).toLocaleDateString("he-IL")}</p>}
+      {nextStatus && (
+        <div className="mt-3 flex justify-end">
           <form action={`/api/orders/${order.id}/status`} method="POST">
             <input type="hidden" name="status" value={nextStatus} />
-            <button type="submit" className="text-xs px-3 py-2 bg-[#F4B19B] text-[#5C3D2E] rounded-full hover:bg-[#E8916F] hover:text-white transition-colors whitespace-nowrap">
+            <button type="submit" className="text-xs px-4 py-2 bg-[#F4B19B] text-[#5C3D2E] rounded-full hover:bg-[#E8916F] hover:text-white transition-colors">
               סמן כ{nextLabel[nextStatus]}
             </button>
           </form>
-        )}
-      </div>
-      <p className="text-sm text-[#5C3D2E]/70 mt-1">{order.bouquet.name} · ₪{order.bouquet.price}</p>
-      <p className="text-sm text-[#5C3D2E]/60">{order.customerPhone}</p>
-      {order.pickupDate && <p className="text-xs text-[#5C3D2E]/50 mt-1">איסוף: {new Date(order.pickupDate).toLocaleDateString("he-IL")}</p>}
+        </div>
+      )}
     </div>
   );
 }
