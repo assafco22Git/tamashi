@@ -12,7 +12,7 @@ export default function Navigation() {
   function toggle() {
     if (open) {
       setAnimating(true);
-      setTimeout(() => { setOpen(false); setAnimating(false); }, 240);
+      setTimeout(() => { setOpen(false); setAnimating(false); }, 350);
     } else {
       setOpen(true);
     }
@@ -23,23 +23,27 @@ export default function Navigation() {
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/logo.jpg" alt="Tamashi" width={40} height={40} className="rounded-full" />
-          <span className="text-xl font-serif text-[#5C3D2E] tracking-wide">Tamashi</span>
+          <span className="text-xl font-semibold text-[#5C3D2E] tracking-wide">Tamashi</span>
         </Link>
 
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="/catalog" className="text-[#5C3D2E] hover:text-[#E8916F] transition-colors">קטלוג</Link>
-          <Link href="/special-order" className="text-[#5C3D2E] hover:text-[#E8916F] transition-colors">הזמנה מיוחדת</Link>
+        {/* Desktop — photo links only */}
+        <div className="hidden md:flex items-center gap-3">
+          <Link href="/catalog" className="group relative w-10 h-10 rounded-full overflow-hidden border-2 border-transparent hover:border-[#F4B19B] transition-all" title="קטלוג">
+            <Image src="/bouquets/b4.jpg" alt="קטלוג" fill className="object-cover group-hover:scale-110 transition-transform duration-300" sizes="40px" />
+          </Link>
+          <Link href="/special-order" className="group relative w-10 h-10 rounded-full overflow-hidden border-2 border-transparent hover:border-[#F4B19B] transition-all" title="הזמנה מיוחדת">
+            <Image src="/bouquets/b1.jpg" alt="הזמנה מיוחדת" fill className="object-cover group-hover:scale-110 transition-transform duration-300" sizes="40px" />
+          </Link>
           <a
             href="https://www.instagram.com/tamashi.tlv/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[#5C3D2E] hover:text-[#E8916F] transition-colors"
+            className="text-[#5C3D2E] hover:text-[#E8916F] transition-colors"
             aria-label="Instagram"
           >
             <InstagramIcon />
           </a>
-          <Link href="/seller/login" className="text-[#5C3D2E]/30 hover:text-[#5C3D2E]/60 transition-colors text-xs">מוכר</Link>
+          <Link href="/seller/login" className="text-[#5C3D2E]/25 hover:text-[#5C3D2E]/50 transition-colors text-xs">מוכר</Link>
         </div>
 
         {/* Mobile toggle */}
@@ -48,22 +52,30 @@ export default function Navigation() {
         </button>
       </div>
 
-      {/* Mobile dropdown with slide animation */}
+      {/* Mobile dropdown — photos only */}
       {(open || animating) && (
-        <div className={`md:hidden bg-[#FDF6F0] border-t border-[#F4B19B]/30 px-4 py-4 flex flex-col gap-4 ${animating ? "nav-close" : "nav-open"}`}>
-          <Link href="/catalog" className="text-[#5C3D2E] text-lg" onClick={toggle}>קטלוג</Link>
-          <Link href="/special-order" className="text-[#5C3D2E] text-lg" onClick={toggle}>הזמנה מיוחדת</Link>
+        <div className={`md:hidden bg-[#FDF6F0] border-t border-[#F4B19B]/30 px-4 py-4 ${animating ? "nav-close" : "nav-open"}`}>
+          <div className="grid grid-cols-2 gap-3">
+            <Link href="/catalog" onClick={toggle} className="group relative aspect-square rounded-2xl overflow-hidden">
+              <Image src="/bouquets/b4.jpg" alt="קטלוג" fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="50vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <p className="absolute bottom-3 right-3 text-white text-sm font-semibold">קטלוג</p>
+            </Link>
+            <Link href="/special-order" onClick={toggle} className="group relative aspect-square rounded-2xl overflow-hidden">
+              <Image src="/bouquets/b1.jpg" alt="הזמנה מיוחדת" fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="50vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <p className="absolute bottom-3 right-3 text-white text-sm font-semibold">הזמנה מיוחדת</p>
+            </Link>
+          </div>
           <a
             href="https://www.instagram.com/tamashi.tlv/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-[#5C3D2E] text-lg"
+            className="flex items-center gap-2 text-[#5C3D2E] mt-4 text-sm"
           >
             <InstagramIcon /> @tamashi.tlv
           </a>
-          <Link href="/seller/login" className="text-[#5C3D2E]/30 text-sm mt-2 self-start" onClick={toggle}>
-            כניסה למוכר
-          </Link>
+          <Link href="/seller/login" className="block text-[#5C3D2E]/30 text-xs mt-3" onClick={toggle}>כניסה למוכר</Link>
         </div>
       )}
     </nav>
