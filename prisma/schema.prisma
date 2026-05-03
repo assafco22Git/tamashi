@@ -48,6 +48,7 @@ model Order {
   pickupDate    DateTime?
   notes         String?
   createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model SpecialOrder {
@@ -61,6 +62,7 @@ model SpecialOrder {
   status        String               @default("pending")
   flowers       SpecialOrderFlower[]
   createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
 }
 
 model SpecialOrderFlower {

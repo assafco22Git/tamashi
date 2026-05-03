@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function POST() {
+export async function POST(req: NextRequest) {
   const cookieStore = await cookies();
   cookieStore.delete("seller_auth");
-  return NextResponse.redirect(new URL("/", process.env.NEXTAUTH_URL ?? "http://localhost:3000"));
+  return NextResponse.redirect(new URL("/", req.url));
 }

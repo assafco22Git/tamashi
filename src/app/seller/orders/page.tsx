@@ -27,7 +27,9 @@ export default async function OrdersPage() {
   const isAuth = await getAuth();
   if (!isAuth) redirect("/seller/login");
 
-  const [openOrders, specialOrders] = await Promise.all([
+  const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+
+  const [openOrders, specialOrders, pastOrders, pastSpecialOrders] = await Promise.all([
     prisma.order.findMany({
       where: { status: { not: "picked_up" } },
       include: { bouquet: true },
@@ -36,6 +38,15 @@ export default async function OrdersPage() {
     prisma.specialOrder.findMany({
       where: { status: { not: "completed" } },
       orderBy: { createdAt: "desc" },
+    }),
+    prisma.order.findMany({
+      where: { status: "picked_up", updatedAt: { gte: oneMonthAgo } },
+      include: { bouquet: true },
+      orderBy: { updatedAt: "desc" },
+    }),
+    prisma.specialOrder.findMany({
+      where: { status: "completed", updatedAt: { gte: oneMonthAgo } },
+      orderBy: { updatedAt: "desc" },
     }),
   ]);
 
@@ -102,6 +113,39 @@ export default async function OrdersPage() {
             </div>
           )}
         </section>
+
+        {/* Past orders (last 30 days) */}
+        {(pastOrders.length > 0 || pastSpecialOrders.length > 0) && (
+          <section className="mt-10">
+            <h2 className="text-xl font-semibold text-[#5C3D2E]/50 mb-4">
+              הזמנות שהסתיימו <span className="text-base font-normal">({pastOrders.length + pastSpecialOrders.length})</span>
+            </h2>
+            <div className="flex flex-col gap-3">
+              {pastOrders.map(order => (
+                <div key={order.id} className="bg-white/60 rounded-xl p-4 shadow-sm border border-[#F4B19B]/10 opacity-60">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <p className="font-medium text-[#5C3D2E]">{order.customerName}</p>
+                    <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-500">נאסף</span>
+                  </div>
+                  <p className="text-sm text-[#5C3D2E]/70">{order.bouquet.name} · ₪{order.bouquet.price}</p>
+                  <p className="text-sm text-[#5C3D2E]/60">{order.customerPhone}</p>
+                  <p className="text-xs text-[#5C3D2E]/40 mt-1">{new Date(order.updatedAt).toLocaleDateString("he-IL")}</p>
+                </div>
+              ))}
+              {pastSpecialOrders.map(order => (
+                <div key={order.id} className="bg-white/60 rounded-xl p-4 shadow-sm border border-[#F4B19B]/10 opacity-60">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <p className="font-medium text-[#5C3D2E]">{order.customerName}</p>
+                    <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-500">הושלם</span>
+                  </div>
+                  <p className="text-sm text-[#5C3D2E]/60">{order.customerPhone}</p>
+                  <p className="text-sm text-[#5C3D2E]/60">גודל: {order.size}{order.budget ? ` · תקציב: ₪${order.budget}` : ""}</p>
+                  <p className="text-xs text-[#5C3D2E]/40 mt-1">{new Date(order.updatedAt).toLocaleDateString("he-IL")}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );
@@ -113,26 +157,26 @@ function OrderRow({ order }: { order: { id: string; customerName: string; custom
   const nextStatus = next[order.status];
 
   return (
-    <div className="bg-white rounded-xl p-4 shadow-sm border border-[#F4B19B]/20 flex items-start justify-between gap-3">
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1 flex-wrap">
+    <div className="bg-white rounded-xl p-4 shadow-sm border border-[#F4B19B]/20">
+      <div className="flex items-start justify-between gap-2 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap">
           <p className="font-medium text-[#5C3D2E]">{order.customerName}</p>
           <span className={`text-xs px-2 py-1 rounded-full ${STATUS_COLORS[order.status] ?? "bg-gray-100"}`}>
             {STATUS_HE[order.status] ?? order.status}
           </span>
         </div>
-        <p className="text-sm text-[#5C3D2E]/70">{order.bouquet.name} · ₪{order.bouquet.price}</p>
-        <p className="text-sm text-[#5C3D2E]/60">{order.customerPhone}</p>
-        {order.pickupDate && <p className="text-xs text-[#5C3D2E]/50 mt-1">איסוף: {new Date(order.pickupDate).toLocaleDateString("he-IL")}</p>}
+        {nextStatus && (
+          <form action={`/api/orders/${order.id}/status`} method="POST">
+            <input type="hidden" name="status" value={nextStatus} />
+            <button type="submit" className="text-xs px-3 py-2 bg-[#F4B19B] text-[#5C3D2E] rounded-full hover:bg-[#E8916F] hover:text-white transition-colors whitespace-nowrap">
+              סמן כ{nextLabel[nextStatus]}
+            </button>
+          </form>
+        )}
       </div>
-      {nextStatus && (
-        <form action={`/api/orders/${order.id}/status`} method="POST">
-          <input type="hidden" name="status" value={nextStatus} />
-          <button type="submit" className="text-xs px-3 py-2 bg-[#F4B19B] text-[#5C3D2E] rounded-full hover:bg-[#E8916F] hover:text-white transition-colors whitespace-nowrap">
-            סמן כ{nextLabel[nextStatus]}
-          </button>
-        </form>
-      )}
+      <p className="text-sm text-[#5C3D2E]/70 mt-1">{order.bouquet.name} · ₪{order.bouquet.price}</p>
+      <p className="text-sm text-[#5C3D2E]/60">{order.customerPhone}</p>
+      {order.pickupDate && <p className="text-xs text-[#5C3D2E]/50 mt-1">איסוף: {new Date(order.pickupDate).toLocaleDateString("he-IL")}</p>}
     </div>
   );
 }

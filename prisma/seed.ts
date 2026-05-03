@@ -52,8 +52,8 @@ const BOUQUETS = [
 ];
 
 async function main() {
-  const existing = await prisma.bouquet.findMany({ select: { imageUrl: true }, take: 1 });
-  const alreadyCorrect = existing[0]?.imageUrl === "/bouquets/b1.jpg";
+  const existing = await prisma.bouquet.findMany({ select: { imageUrl: true } });
+  const alreadyCorrect = existing.length === 5 && existing.some(b => b.imageUrl === "/bouquets/b1.jpg");
 
   if (alreadyCorrect) {
     console.log("Bouquets already seeded correctly, skipping.");
