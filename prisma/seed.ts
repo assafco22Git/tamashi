@@ -10,95 +10,100 @@ const prisma = createPrisma();
 
 const BOUQUETS = [
   {
-    name: "ורדים וורודים",
-    description: "זר ורדים וורודים עדין, מושלם לאירועים רומנטיים ולמתנה מהלב",
-    price: 180,
-    imageUrl: "https://images.unsplash.com/photo-1487530811576-3780be1f8e4b?w=800&q=80",
-    featured: true,
-    available: true,
-  },
-  {
-    name: "זר בר פראי",
-    description: "זר בר עשיר ומלא חיים עם פרחי שדה צבעוניים ועלווה ירוקה",
-    price: 160,
-    imageUrl: "https://images.unsplash.com/photo-1490750967868-88df5691a4a7?w=800&q=80",
-    featured: true,
-    available: true,
-  },
-  {
-    name: "אדמוניות לבנות",
-    description: "זר אדמוניות לבנות מרשים, מלא נפח ועדינות, לאירועים מיוחדים",
+    name: "אנטוריום טרופי",
+    description: "עיצוב טרופי נועז עם אנטוריום צהוב, עלי דקל ופרחי בר בצבעים עזים",
     price: 220,
-    imageUrl: "https://images.unsplash.com/photo-1468327768560-75b778cbb551?w=800&q=80",
-    featured: false,
-    available: true,
-  },
-  {
-    name: "כלניות אביב",
-    description: "זר כלניות עליז בצבעים עזים, מסמל את התחדשות האביב הישראלי",
-    price: 150,
-    imageUrl: "https://images.unsplash.com/photo-1481344836366-71f0f86fcf42?w=800&q=80",
+    imageUrl: "/bouquets/b1.jpg",
     featured: true,
     available: true,
   },
   {
-    name: "זר לבן נקי",
-    description: "זר לבן קלאסי ונקי עם ורדים, ליזיאנתוס ואקליפטוס, מושלם לחתונות",
+    name: "זר הורטנזיה מיקס",
+    description: "הורטנזיות בסגול ורוד עם דליות ופרחי בר, מושלם לאירועים",
+    price: 195,
+    imageUrl: "/bouquets/b2.jpg",
+    featured: true,
+    available: true,
+  },
+  {
+    name: "אנטוריום כהה",
+    description: "עיצוב דרמטי עם אנטוריום כהה, גבעולים טרופיים ועלווה ירוקה עשירה",
     price: 240,
-    imageUrl: "https://images.unsplash.com/photo-1498931299472-f7a63a5a1cfa?w=800&q=80",
+    imageUrl: "/bouquets/b3.jpg",
     featured: false,
     available: true,
   },
   {
-    name: "ורדים אדומים",
-    description: "זר ורדים אדומים קלאסי ויוקרתי – מסר אהבה בשפה הכי ישנה שיש",
-    price: 200,
-    imageUrl: "https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=800&q=80",
+    name: "אורכידאה ואנטוריום",
+    description: "שילוב יוקרתי של אורכידאות, אנטוריום אדום וליליות בעיצוב גבוה",
+    price: 250,
+    imageUrl: "/bouquets/b4.jpg",
     featured: true,
     available: true,
   },
   {
-    name: "בוהו דרייד",
-    description: "זר פרחים מיובשים בסגנון בוהו, לנצח יפה ולא דורש טיפול",
+    name: "גן צבעוני",
+    description: "זר מרהיב ומלא חיים עם מגוון פרחי גן בצבעים חיים ועלווה ירוקה",
+    price: 180,
+    imageUrl: "/bouquets/b5.jpg",
+    featured: false,
+    available: true,
+  },
+  {
+    name: "דליה ואנטוריום",
+    description: "זר ייחודי עם דליות אדומות, אנטוריום ופרחי גן מיוחדים ביד",
+    price: 200,
+    imageUrl: "/bouquets/b6.jpg",
+    featured: false,
+    available: true,
+  },
+  {
+    name: "קרנציה ופירות",
+    description: "עיצוב מיוחד עם קרנציות בורדו, אנטוריום ועלי פרי, בצנצנת לבנה",
     price: 175,
-    imageUrl: "https://images.unsplash.com/photo-1501003878151-d3cb87799705?w=800&q=80",
+    imageUrl: "/bouquets/b7.jpg",
     featured: false,
     available: true,
   },
   {
-    name: "גן קיץ",
-    description: "זר קיצי ססגוני עם חמניות, ציניות ופרחי גן בצבעים חמים",
-    price: 165,
-    imageUrl: "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?w=800&q=80",
-    featured: false,
-    available: true,
-  },
-  {
-    name: "אקליפטוס ופרחים",
-    description: "שילוב מודרני של ענפי אקליפטוס ירוק עם פרחים עדינים בגוונים רכים",
-    price: 190,
-    imageUrl: "https://images.unsplash.com/photo-1422207049116-cfaf69531072?w=800&q=80",
-    featured: false,
-    available: true,
-  },
-  {
-    name: "זר עדין מיקס",
-    description: "זר מיקס עדין ורומנטי בגוונים פסטליים, מושלם לכל אירוע",
+    name: "ליליות ואורכידאות",
+    description: "זר אלגנטי עם ליליות ורודות, אורכידאות לבנות וגבעולים ירוקים עדינים",
     price: 210,
-    imageUrl: "https://images.unsplash.com/photo-1444021465936-c6ca81d39b84?w=800&q=80",
+    imageUrl: "/bouquets/b8.jpg",
+    featured: true,
+    available: true,
+  },
+  {
+    name: "הורטנזיה ופרחי בר",
+    description: "זר כלות אינטימי עם הורטנזיות סגולות, ורדים ופרחי בר עדינים",
+    price: 230,
+    imageUrl: "/bouquets/b9.jpg",
+    featured: false,
+    available: true,
+  },
+  {
+    name: "הורטנזיה וכתמים",
+    description: "זר עגול ושופע עם הורטנזיות בגוונים סגולים, ורדים כתומים וזרדים",
+    price: 215,
+    imageUrl: "/bouquets/b10.jpg",
     featured: false,
     available: true,
   },
 ];
 
 async function main() {
-  const existing = await prisma.bouquet.count();
-  if (existing === 0) {
-    await prisma.bouquet.createMany({ data: BOUQUETS });
-    console.log(`Seeded ${BOUQUETS.length} bouquets.`);
-  } else {
-    console.log(`Skipping seed — ${existing} bouquets already exist.`);
+  // Always re-seed bouquets so images stay up to date
+  const existing = await prisma.bouquet.findMany({ select: { imageUrl: true }, take: 1 });
+  const alreadyLocal = existing[0]?.imageUrl?.startsWith("/bouquets/");
+
+  if (alreadyLocal) {
+    console.log("Bouquets already seeded with local images, skipping.");
+    return;
   }
+
+  await prisma.bouquet.deleteMany();
+  await prisma.bouquet.createMany({ data: BOUQUETS });
+  console.log(`Seeded ${BOUQUETS.length} bouquets with Instagram photos.`);
 }
 
 main()
